@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Heart, Home, Stethoscope, BookOpen, ArrowRight, MapPin, Mail, Phone, Star } from 'lucide-react'
+import { Heart, Home, Stethoscope, BookOpen, ArrowRight, MapPin, Mail, Phone, Star, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'
 import Image from 'next/image'
 
 export default function HopeHavenPage() {
@@ -22,12 +23,60 @@ export default function HopeHavenPage() {
             </div>
             <span className="text-xl font-semibold text-foreground">HopeHaven</span>
           </div>
+          
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-12">
             <a href="#about" className="text-sm text-foreground/70 hover:text-primary transition-colors">About</a>
             <a href="#programs" className="text-sm text-foreground/70 hover:text-primary transition-colors">Programs</a>
             <a href="#impact" className="text-sm text-foreground/70 hover:text-primary transition-colors">Impact</a>
             <a href="#stories" className="text-sm text-foreground/70 hover:text-primary transition-colors">Stories</a>
           </nav>
+
+          {/* Mobile Menu */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gradient-to-b from-white to-secondary/10">
+              <div className="flex flex-col h-full">
+                
+
+                {/* Navigation */}
+                <nav className="flex flex-col gap-2 py-8">
+                  <a href="#about" className="flex items-center gap-3 px-4 py-3 text-lg text-foreground/70 hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200 group">
+                    <Home className="w-5 h-5 text-primary/60 group-hover:text-primary transition-colors" />
+                    About
+                  </a>
+                  <a href="#programs" className="flex items-center gap-3 px-4 py-3 text-lg text-foreground/70 hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200 group">
+                    <BookOpen className="w-5 h-5 text-primary/60 group-hover:text-primary transition-colors" />
+                    Programs
+                  </a>
+                  <a href="#impact" className="flex items-center gap-3 px-4 py-3 text-lg text-foreground/70 hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200 group">
+                    <Stethoscope className="w-5 h-5 text-primary/60 group-hover:text-primary transition-colors" />
+                    Impact
+                  </a>
+                  <a href="#stories" className="flex items-center gap-3 px-4 py-3 text-lg text-foreground/70 hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200 group">
+                    <Star className="w-5 h-5 text-primary/60 group-hover:text-primary transition-colors" />
+                    Stories
+                  </a>
+                </nav>
+
+                {/* Call to Action */}
+                <div className="mt-auto pt-8 border-t border-border/50">
+                  <Button
+                    className="w-full bg-primary hover:bg-primary/90 text-white rounded-lg py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    onClick={() => document.getElementById('donate')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Donate Now
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </header>
 
