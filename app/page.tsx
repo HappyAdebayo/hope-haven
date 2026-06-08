@@ -91,7 +91,7 @@ export default function HopeHavenPage() {
 
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className={`md:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}>
+                <Button variant="ghost" size="icon" className="md:hidden text-foreground hover:bg-primary/10">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
@@ -197,7 +197,7 @@ export default function HopeHavenPage() {
               Join thousands of supporters in creating lasting impact. We provide the tools to build a brighter future for every child.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 relative">
               <Button
                 size="lg"
                 className="w-full sm:w-auto h-18 px-12 rounded-2xl bg-primary hover:bg-primary/90 text-white text-xl font-bold shadow-2xl shadow-primary/30 hover:scale-105 transition-all flex items-center gap-3"
@@ -215,8 +215,34 @@ export default function HopeHavenPage() {
                 Explore mission
                 <ChevronRight className="w-6 h-6 ml-1 group-hover:translate-x-1 transition-transform" />
               </Button>
+
+              {/* Playful Dashed Arrow Decor */}
+              <div className="hidden lg:block absolute -right-24 top-20 text-primary/40 pointer-events-none">
+                <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 5C40 10 70 40 110 75M110 75L100 65M110 75L115 60" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="6 6" />
+                </svg>
+              </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Decorative Floating Background Icons */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <motion.div 
+            animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-[20%] left-[20%] text-primary/10"
+          >
+            <Star className="w-12 h-12 fill-current" />
+          </motion.div>
+          <motion.div 
+            animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 4, repeat: Infinity }}
+            className="absolute bottom-[30%] left-[30%] text-pink-400/10"
+          >
+            <Heart className="w-16 h-16 fill-current" />
+          </motion.div>
+          <div className="absolute top-[40%] right-[30%] text-yellow-500/10 rotate-12">
+            <Quote className="w-20 h-20 fill-current" />
+          </div>
         </div>
       </section>
 
@@ -251,6 +277,109 @@ export default function HopeHavenPage() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Urgent Needs / Active Campaigns */}
+      <section className="py-24 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="max-w-2xl">
+              <motion.span {...fadeInUp} className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block underline underline-offset-8 decoration-primary/30">Active Campaigns</motion.span>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-5xl md:text-6xl font-bold text-foreground leading-tight"
+              >
+                Immediate needs that <br /><span className="text-primary italic">require your heart.</span>
+              </motion.h2>
+            </div>
+            <Button variant="outline" className="rounded-2xl h-14 px-8 border-primary/20 hover:bg-primary/5 text-primary font-bold">
+              View all projects
+            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10">
+            {[
+              {
+                title: 'Operation Warmth: Winter Kits',
+                desc: 'Providing blankets, heavy coats, and boots for 500 children in mountain regions.',
+                raised: '₦4.2M',
+                goal: '₦10M',
+                progress: 42,
+                image: '/gallery-1.jpg',
+                tag: 'Emergency'
+              },
+              {
+                title: 'Tech For Tomorrow: School Lab',
+                desc: 'Building a modern computer laboratory to provide digital literacy to 1,200 students.',
+                raised: '₦18M',
+                goal: '₦25M',
+                progress: 72,
+                image: '/gallery-2.jpg',
+                tag: 'Education'
+              }
+            ].map((campaign, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="group relative bg-secondary/20 rounded-[3rem] overflow-hidden border border-border/50 hover:shadow-premium transition-all duration-500"
+              >
+                <div className="grid lg:grid-cols-2 h-full">
+                  <div className="relative h-64 lg:h-full overflow-hidden">
+                    <Image src={campaign.image} alt={campaign.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute top-6 left-6 py-1 px-4 rounded-full bg-white/90 backdrop-blur-md text-xs font-bold uppercase tracking-widest text-primary shadow-sm">
+                      {campaign.tag}
+                    </div>
+                  </div>
+                  <div className="p-10 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{campaign.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-8">{campaign.desc}</p>
+                    </div>
+                    
+                    <div className="space-y-6">
+                      <div className="space-y-3">
+                        <div className="flex justify-between text-sm font-bold uppercase tracking-wider">
+                          <span className="text-muted-foreground">Raised: <span className="text-foreground">{campaign.raised}</span></span>
+                          <span className="text-primary">{campaign.progress}%</span>
+                        </div>
+                        <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${campaign.progress}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.5, ease: "easeOut" }}
+                            className="h-full bg-primary rounded-full"
+                          />
+                        </div>
+                        <div className="text-xs text-muted-foreground font-medium italic">Target Goal: {campaign.goal}</div>
+                      </div>
+                      <Button className="w-full h-14 rounded-2xl bg-foreground text-white hover:bg-primary transition-colors font-bold shadow-lg">
+                        Support this need
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Transparency / Trust Section */}
+      <section className="py-20 border-y border-border/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+             <div className="flex items-center gap-2 font-black text-2xl tracking-tighter italic">NGO ADVISOR <span className="text-sm font-normal not-italic ml-2">Gold Grade</span></div>
+             <div className="flex items-center gap-2 font-black text-2xl tracking-tighter">UN <span className="font-light">Partnership</span></div>
+             <div className="flex items-center gap-2 font-black text-2xl tracking-tighter italic">ISO <span className="text-sm font-normal not-italic">9001Certified</span></div>
+             <div className="flex items-center gap-2 font-black text-2xl tracking-tighter uppercase">Red Cross <span className="font-light">Verified</span></div>
+          </div>
         </div>
       </section>
 
@@ -343,21 +472,27 @@ export default function HopeHavenPage() {
                 title: 'Quality Education',
                 desc: 'Specialized curricula designed to bridge educational gaps and spark lifelong curiosity.',
                 color: 'text-purple-500',
-                bg: 'bg-purple-500/10'
+                bg: 'bg-purple-500/10',
+                metric: '850 students',
+                step: '01'
               },
               {
                 icon: Heart,
                 title: 'Holistic Health',
                 desc: 'Beyond clinics, we provide mental health support and nutritional programs that thrive.',
                 color: 'text-primary',
-                bg: 'bg-primary/10'
+                bg: 'bg-primary/10',
+                metric: '12,000 meals/yr',
+                step: '02'
               },
               {
                 icon: Home,
                 title: 'Nurturing Home',
                 desc: 'A sanctuary of belonging where every child is part of a supportive family unit.',
                 color: 'text-pink-500',
-                bg: 'bg-pink-500/10'
+                bg: 'bg-pink-500/10',
+                metric: '60 families active',
+                step: '03'
               }
             ].map((program, idx) => (
               <motion.div
@@ -366,15 +501,19 @@ export default function HopeHavenPage() {
                 whileHover={{ y: -10 }}
                 className="group p-10 rounded-[2.5rem] bg-white shadow-lg hover:shadow-premium transition-all duration-500 border border-border/50 relative overflow-hidden"
               >
+                <span className="absolute top-8 right-10 text-7xl font-black text-border/30 select-none leading-none">{program.step}</span>
                 <div className={`w-16 h-16 rounded-2xl ${program.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
                   <program.icon className={`w-8 h-8 ${program.color}`} />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">{program.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-lg">{program.desc}</p>
+                <p className="text-muted-foreground leading-relaxed text-lg mb-6">{program.desc}</p>
+                <div className={`inline-flex items-center gap-2 py-1.5 px-4 rounded-full text-sm font-bold ${program.bg} ${program.color}`}>
+                  {program.metric} reached
+                </div>
                 <div className="mt-8 pt-8 border-t border-border/50 flex items-center justify-between">
-                  <span className="font-bold text-sm uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Learn More</span>
-                  <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
-                    <ChevronRight className="w-5 h-5 text-foreground" />
+                  <span className="font-bold text-sm uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity text-primary">Learn More</span>
+                  <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                    <ChevronRight className="w-5 h-5" />
                   </div>
                 </div>
               </motion.div>
@@ -482,6 +621,47 @@ export default function HopeHavenPage() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How Your Money Works — Fund Allocation */}
+      <section className="py-24 px-6 bg-secondary/20">
+        <div className="max-w-5xl mx-auto text-center">
+          <motion.span {...fadeInUp} className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Full Transparency</motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold mb-4"
+          >Where every Naira goes</motion.h2>
+          <p className="text-muted-foreground text-lg mb-16 max-w-xl mx-auto">We publish our annual financial report. Here's how your donation is allocated across our programs.</p>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { pct: '68%', label: 'Child Programs', desc: 'Education, health, & shelter', color: 'bg-primary' },
+              { pct: '16%', label: 'Community Outreach', desc: 'Family support & local events', color: 'bg-purple-400' },
+              { pct: '10%', label: 'Operations', desc: 'Staff & facility management', color: 'bg-pink-400' },
+              { pct: '6%', label: 'Fundraising', desc: 'Campaigns & awareness', color: 'bg-indigo-400' },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white rounded-[2rem] p-8 text-center shadow-sm border border-border/50"
+              >
+                <div className={`w-16 h-16 rounded-2xl ${item.color} flex items-center justify-center mx-auto mb-5`}>
+                  <span className="text-white font-black text-xl">{item.pct}</span>
+                </div>
+                <h4 className="font-bold text-lg mb-2">{item.label}</h4>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10">
+            <Button variant="link" className="text-primary font-bold text-sm gap-2">
+              Download 2024 Annual Report <ArrowRight className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </section>
